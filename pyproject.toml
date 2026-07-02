@@ -1,0 +1,15 @@
+[project]
+name = "comfyui-save-text-node"
+version = "1.0.0"
+description = "ComfyUI V3 custom node to save a string to a text file in the output directory."
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "Mistralys" },
+]
+
+[project.urls]
+Repository = "https://github.com/Mistralys/comfyui-save-text-node"
+
+[tool.comfy]
+PublisherId = "Mistralys"
