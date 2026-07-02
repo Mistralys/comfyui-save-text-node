@@ -18,14 +18,20 @@ class SaveTextNode(io.ComfyNode):
             is_output_node=True,
             not_idempotent=True,
             inputs=[
-                io.String.Input("text", multiline=True, default=""),
-                io.String.Input("filename", default="output"),
-                io.String.Input("extension", default="txt"),
-                io.Int.Input("counter_length", default=5, min=0, max=10, step=1),
-                io.String.Input("subfolder", default="", optional=True),
+                io.String.Input("text", multiline=True, default="",
+                    tooltip="The text content to save. Trimmed of leading and trailing whitespace. An empty or whitespace-only value is written as '(empty string specified)'."),
+                io.String.Input("filename", default="output",
+                    tooltip="Base name of the output file, without the extension. Directory separators are stripped automatically to prevent path traversal."),
+                io.String.Input("extension", default="txt",
+                    tooltip="File extension for the saved file (e.g. txt, md, csv). Leading dots are stripped, so both 'txt' and '.txt' are accepted."),
+                io.Int.Input("counter_length", default=5, min=0, max=10, step=1,
+                    tooltip="Number of digits in the auto-incrementing counter appended to the filename (e.g. output_00001.txt). Set to 0 to disable — the file is overwritten on each run."),
+                io.String.Input("subfolder", default="", optional=True,
+                    tooltip="Optional subdirectory inside ComfyUI's output directory. Created automatically if absent. Must resolve inside the output directory. Leave empty to save to the root output folder."),
             ],
             outputs=[
-                io.String.Output("TEXT"),
+                io.String.Output("TEXT",
+                    tooltip="Passthrough of the saved text, trimmed of leading and trailing whitespace. Identical to the value written to disk."),
             ],
         )
 
