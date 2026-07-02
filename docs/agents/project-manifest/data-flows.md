@@ -1,6 +1,6 @@
 # Key Data Flows
 
-> **Status:** Planned — source code not yet implemented.
+> **Status:** Implemented — `nodes.py` at project root.
 
 ## Save Text Execution Flow
 
@@ -12,8 +12,11 @@ ComfyUI Engine
     → text.strip()
     → if empty: replace with "(empty string specified)"
     → extension.lstrip(".")
+    → if extension is now empty: default to "txt"
+    → filename = os.path.basename(filename)  # strip any directory separators
+    → subfolder = subfolder.strip()
     → folder_paths.get_output_directory() → base output path
-    → if subfolder: os.makedirs(output_dir / subfolder, exist_ok=True)
+    → if subfolder: validate boundary, then os.makedirs(output_dir / subfolder, exist_ok=True)
     → if counter_length > 0:
         scan target dir for {filename}_{counter}.{extension} pattern
         → next counter = max(existing) + 1 (or 1 if none)

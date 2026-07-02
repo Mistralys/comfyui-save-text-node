@@ -1,7 +1,6 @@
 # Public API Surface
 
-> **Status:** Planned — source code not yet implemented.
-> Signatures below are derived from the [implementation plan](../plans/2026-07-01-save-text-node/plan.md).
+> **Status:** Implemented — `nodes.py` at project root.
 
 ## `nodes.py` — SaveTextNode
 
@@ -13,6 +12,7 @@ ComfyUI V3 node class (`io.ComfyNode` subclass).
 |---|---|
 | `node_id` | `"SaveText"` |
 | `display_name` | `"Save Text"` |
+| `description` | `"Saves a string to a text file in the output directory."` |
 | `category` | `"utils"` |
 | `is_output_node` | `True` |
 | `not_idempotent` | `True` |
@@ -26,6 +26,8 @@ ComfyUI V3 node class (`io.ComfyNode` subclass).
 | `extension` | `io.String` | `"txt"` | Leading dots stripped automatically |
 | `counter_length` | `io.Int` | `5` | `min=0, max=10`; `0` disables counter |
 | `subfolder` | `io.String` | `""` | `optional=True`; subdirectory under output |
+
+> `subfolder` and `filename` are validated with `os.path.realpath()` boundary check and `os.path.basename()` sanitization respectively. Paths resolving outside the output directory raise `ValueError`.
 
 #### Outputs
 
@@ -53,11 +55,11 @@ execute(cls, text, filename, extension, counter_length, subfolder) -> io.NodeOut
 
 ```
 class SaveTextExtension(ComfyExtension):
-    get_node_list(cls) -> list[type[io.ComfyNode]]
+    async def get_node_list(self) -> list[type[io.ComfyNode]]
 ```
 
 ### Module-level Functions
 
 ```
-comfy_entrypoint() -> ComfyExtension
+async def comfy_entrypoint() -> SaveTextExtension
 ```

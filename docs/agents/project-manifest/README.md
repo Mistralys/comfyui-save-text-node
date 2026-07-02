@@ -1,8 +1,6 @@
 # Project Manifest — ComfyUI Save Text Node
 
-> **Status:** Pre-implementation skeleton. Source code has not been written yet.
-> Sections reflect design decisions from the [project specification](../projects/node-project.md) and [implementation plan](../plans/2026-07-01-save-text-node/plan.md).
-> Update this manifest once the node is implemented.
+> **Status:** Implemented. See [synthesis report](../plans/2026-07-01-save-text-node-rework-1/synthesis.md) for the latest implementation summary.
 
 ## Sections
 
